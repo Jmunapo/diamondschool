@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-row >
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div >
+    <form (ngSubmit)="do_login()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+
+            <ion-item>
+              <ion-label color="primary_b" floating>Username</ion-label>
+              <ion-input type="text" name="username" [(ngModel)]="login.username" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary_b" floating>Password</ion-label>
+              <ion-input type="password" name="password" [(ngModel)]="login.password" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <ion-row>
+      <ion-col >
+        <button ion-button class="register-btn" block clear (click)="create_account()">Create New Account</button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

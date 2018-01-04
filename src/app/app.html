@@ -1,1 +1,49 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="mainContent">
+  <ion-header>
+    <ion-toolbar color="primary_b">
+        <ion-title style="text-align:center">
+          Hi, {{user_info.user.username}}
+        </ion-title>
+      </ion-toolbar>
+  </ion-header>
+  <ion-content >
+    <ion-list >
+      <ion-item >
+        <ion-thumbnail item-left>
+          <img [src]=selected_school.thumbnail />
+        </ion-thumbnail>
+        <h3> {{selected_school.name}} </h3>
+        <h4> {{selected_school.level}} </h4>
+        <p>{{moto}}</p>
+        <ion-note>{{selected_school.location}} {{selected_school.city}}</ion-note>
+      </ion-item>
+    </ion-list>
+
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button color="primary" outline full icon-start>
+            <ion-icon name='chatbubbles'></ion-icon>
+            Chat
+          </button>
+        </ion-col>
+        <ion-col col-8>
+          <button ion-button color="primary" menuToggle outline full icon-start (click)="switch_schools()">
+            <ion-icon name='swap'></ion-icon>
+            Switch School
+          </button>
+        </ion-col>
+      </ion-row>
+
+    
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <button  ion-button outline (click)="logout()"  block icon-right style="font-weight:600;">
+        Logout
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage"></ion-nav>

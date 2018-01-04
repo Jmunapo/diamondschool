@@ -1,0 +1,67 @@
+<ion-content class="login-content">
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div class="login-box">
+    <form (ngSubmit)="proccess_register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-label color="primary_b" floating>Full Name</ion-label>
+              <ion-input type="text" name="display_name" [(ngModel)]="register.display_name" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary_b" floating>Username</ion-label>
+              <ion-input type="text" name="username" [(ngModel)]="register.username" required></ion-input>
+              <ion-note *ngIf="valid[0]" item-end color="danger">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-note>
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary_b" floating>Phone Number</ion-label>
+              <ion-input type="text" name="phone" [(ngModel)]="register.description" required></ion-input>
+              <ion-note *ngIf="valid[1]" item-end color="danger">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-note>
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary_b" floating>Email</ion-label>
+              <ion-input type="email" name="email" [(ngModel)]="register.email" required></ion-input>
+              <ion-note *ngIf="valid[2]" item-end color="danger">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary_b" floating>Password</ion-label>
+              <ion-input type="password" name="password" [(ngModel)]="register.user_pass" required></ion-input>
+              <ion-note *ngIf="valid[3]" item-end color="danger">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-note>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+    <ion-row>
+      <ion-col class="signup-col">
+        <button ion-button class="register-btn" block clear (click)="go_login()">Already have an Account?</button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
