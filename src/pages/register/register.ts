@@ -27,10 +27,6 @@ export class RegisterPage {
     this.navCtrl.setRoot(LoginPage)
   }
 
-  checkUsername() {
-    return this.remote.get_username(this.register.username)
-  }
-
   validate_email() {
     let regExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     if (regExp.test(this.register.email)) {
@@ -56,14 +52,10 @@ export class RegisterPage {
   }
 
   proccess_register() {
-    let username = this.checkUsername();
     let pwd = this.check_user_pass();
     let email = this.validate_email();
     let description = this.check_description();
-    if (!username) {
-      this.valid[0] = true;
-      return false;
-    } else if (username && email && description && pwd) {
+    if (email && description && pwd) {
       this.get_first_n_lastname();
       let prompt = this.altrCtrl.create({
         title: 'Confirm Password',

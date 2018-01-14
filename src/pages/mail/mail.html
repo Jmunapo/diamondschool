@@ -1,16 +1,34 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle >
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Mail
+    <ion-title  style="text-align:center">
+      Messages
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="subscribe()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content id="page2"></ion-content>
+<ion-content>
+  <div class="messages" padding>
+    <ion-list>
+      <button *ngFor="let msg of my_messages" ion-item (click)="open_inbox(msg, msg.name)">
+        <p style="text-transform:uppercase">
+          {{msg.name}}
+        </p>
+        <ion-badge color="secondary" item-end>{{msg.messages.length}}</ion-badge>
+      </button>
+    </ion-list>
+  </div>
+
+<ion-fab right bottom>
+  <button ion-fab color="primary" (click)="add_messages()">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>
+
+</ion-content>

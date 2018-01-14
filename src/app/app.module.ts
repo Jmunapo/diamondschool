@@ -19,6 +19,8 @@ import { DatabaseProvider } from '../providers/database/database';
 import { HttpClientModule } from '@angular/common/http';
 import { Http } from '@angular/http';
 
+import { ModalPage } from '../pages/modal/modal';
+import { PipesModule } from '../pipes/pipes.module';
 
 import {
   WpApiModule,
@@ -45,6 +47,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     RegisterPage,
     AccountPage,
     SwitchSchoolPage,
+    ModalPage,
     ViewPage
   ],
   imports: [
@@ -56,6 +59,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
       deps: [Http]
       
     }),
+    PipesModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -67,6 +71,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     ShopPage,
     LoginPage,
     RegisterPage,
+    ModalPage,
     TabsPage,
     AccountPage,
     SwitchSchoolPage,

@@ -15,7 +15,12 @@ import { Events } from 'ionic-angular/util/events';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+  read_msgs: Array<number> = []; //To know if the msge is already read
   user_info: any;
+  msg_counter: number = 0;
+  subdomain: string = ''; //school subdomain
+  selected: string = ''; //School name
+  messages: Array<any> = []; //messages from the server
   tab1Root: any = MailPage;
   tab2Root: any = HomePage;
   tab3Root: any = ShopPage;
@@ -26,6 +31,7 @@ export class TabsPage {
     public alertCtrl: AlertController,
     public remote: RemoteProvider, 
     public navCtrl: NavController) {
+
     this.get_media();
     let data = navParams.get('user')
     let sw_user = navParams.get('sw_user')
@@ -38,6 +44,58 @@ export class TabsPage {
     }else{
       this.user_info = { user: { username: 'User' } };
     }
+  }
+
+  ionViewDidLoad() {
+    //this.activeTab = this.navParams.get("tab") ? this.navParams.get("tab") : 1;
+    this.database.getData('selected_school').then(v => {
+      if (v) {
+        console.log(v);
+        this.subdomain = v.subdomain;
+        this.selected = v.name;
+        this.load_messages();
+      }
+    })
+  }
+
+  //Loading masseges in background
+  load_messages(){
+    if (this.subdomain !== '') {
+      this.database.getData(this.subdomain + '_groups').then(val => {
+        let count = 0;
+        if (val) {
+          val.forEach(elem => {
+            this.remote.get_custom_post(this.subdomain, elem.posttype).subscribe(msg => {
+              if (msg) {
+                let res = JSON.parse(JSON.stringify(msg))
+                console.log(res)
+                if (res.length !== 0) {
+                  let to_save = { name: elem.label+' Inbox', group: elem.posttype, messages: res }
+                  this.messages.push(to_save);
+                }
+              }
+              count++;
+              if (count === val.length) {
+                //check read and save
+                this.save_messages_to_db();
+                console.log(this.messages);
+              }
+            });
+          });
+        }
+        
+      })
+    }
+    
+  }
+
+  save_messages_to_db(){
+    this.database.setData(this.subdomain + '_messages', this.messages).then(sav => {
+      if (sav) {
+        console.log(this.messages);
+        console.log('Massege Saved')
+      }
+    })
   }
 
   select_school(user){
@@ -77,7 +135,7 @@ export class TabsPage {
     });
   }
   get_media() {
-    let image = this.remote.get_thumb_image();
+    this.remote.get_thumb_image();
   }
   
 }

@@ -6,6 +6,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { Events } from 'ionic-angular/util/events';
 import { TabsPage } from '../tabs/tabs';
+import { OneSignal } from '@ionic-native/onesignal';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SwitchSchoolPage {
   media_url: Array<any> = [];
   user_data: any;
   constructor(
+    public onesiginal: OneSignal,
     public event: Events,
     public loader: LoadingController,
     public remote: RemoteProvider, 
@@ -162,37 +164,29 @@ export class SwitchSchoolPage {
   }
 
   select_school(arr){
-    let b = this.saved_schools.findIndex(f => f.id === arr.id);
-    if(b !== -1){
-      this.database.setData('selected_school', arr).then(val=>{
-        if(val){
+    this.database.getData('selected_school').then(val => {
+      if (val) {
+        this.onesiginal.deleteTag(val.subdomain);
+      }
+      this.onesiginal.sendTag(arr.subdomain, '1')
+      this.database.setData('selected_school', arr).then(val => {
+        if (val) {
           let msg = this.my_sanitizer(arr.id) + ' Selected';
           this.show_toaster(msg)
           this.navCtrl.setRoot(TabsPage, {
             sw_user: this.user_data
           });
-        }else{
-          this.show_toaster('Not selected, Unexpected error please reload the APP');
+        } else {
+          this.show_toaster('Not selected, Unexpected error please restart the APP');
         }
       })
-      
-    }else{
-      const toast = this.toaster.create({
-        message: 'Add to your List First',
-        showCloseButton: true,
-        position: 'middle',
-        closeButtonText: 'Ok'
-      });
-      toast.present();
-    }
-    //Action on selected school
-    console.log(arr);
+    });
   }
 
 
   user_subscribe(arr) {
     let loader = this.loader.create({
-      content: 'Wait',
+      content: 'Loading...',
       duration: 11000,
       spinner: 'bubbles',
     });
@@ -243,6 +237,17 @@ export class SwitchSchoolPage {
         loader.dismiss();
         this.show_toaster(msg);
       })
+  }
+
+  notifications(subdomain){
+    console.log(subdomain);
+    this.database.getData('selected_school').then(val=>{
+      console.log(val);
+      if(val){
+        //this.onesiginal.deleteTag(val.subdomain);
+      }
+      //this.onesiginal.sendTag(subdomain, '1')
+    });
   }
 
 

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align:center">
+      Subscribe
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="dismiss_subscribe()">
+        Close
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <!--Loader...-->
+  <div style="text-align:center" *ngIf="!ready">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div>
+    <ion-list>
+      <ion-item *ngFor="let group of all_groups; let i = index">
+        <ion-label> {{group.label}} </ion-label>
+        <ion-toggle id="{{group.segment}}" [(ngModel)]="test_checked[i]" checked="false" (tap)="switched(group.segment, group.label,i)"></ion-toggle>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+</ion-content>

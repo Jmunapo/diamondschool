@@ -74,16 +74,10 @@
         <p [innerHTML]="xul.location"></p>
         <ion-note>{{xul.city}}</ion-note>
         <ion-row>
-          <ion-col col-6>
-            <button ion-button color="primary" clear small icon-start (click)="select_school(xul)">
-              <ion-icon name='contract'></ion-icon>
-              Select
-            </button>
-          </ion-col>
-          <ion-col col-6>
+          <ion-col col-12>
             <button ion-button color="primary" clear small icon-start (click)="add_my_school(xul)">
               <ion-icon name='star'></ion-icon>
-               Add
+               Add to my List
             </button>
           </ion-col>
         </ion-row>

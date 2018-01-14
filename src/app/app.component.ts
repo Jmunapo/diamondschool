@@ -2,16 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { OneSignal } from '@ionic-native/onesignal';
 
-import { TabsPage } from '../pages/tabs/tabs'
-import { AccountPage } from '../pages/account/account'
 import { LoginPage } from '../pages/login/login';
 import { SwitchSchoolPage } from '../pages/switch-school/switch-school';
 import { DatabaseProvider } from '../providers/database/database';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { Events } from 'ionic-angular/util/events';
+import { TabsPage } from '../pages/tabs/tabs';
 
 
 
@@ -45,6 +43,10 @@ export class MyApp {
       this.sidemenu_reload(data);
       this.reload_posts(data.subdomain);
     });
+    event.subscribe('message_changed', () => {
+      this.navCtrl.setRoot(TabsPage);
+    });
+    
     database.getData('account_info').then(val=>{
       if(val){
         this.user_info = JSON.parse(val);
@@ -56,18 +58,16 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-        window["plugins"].OneSignal
+       window["plugins"].OneSignal
           .startInit("619eeaa7-630e-4c12-a650-5aa7421ebf22", "197583177674")
           //called when a notification is tapped on from the notification shade
           .handleNotificationOpened(function (jsonData) {
             alert("Notification opened:\n" + JSON.stringify(jsonData));
-            console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-            this.navCtrl.setRoot(AccountPage);
+            this.navCtrl.setRoot(TabsPage);
           })
           //Only called if the app is in focus at the time the notification was received.
           .handleNotificationReceived(function (jsonData) {
             alert("Notification received:\n" + JSON.stringify(jsonData));
-            console.log('Did I receive a notification: ' + JSON.stringify(jsonData));
           })
           //.setSubscription(true)
           .endInit();

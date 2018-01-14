@@ -5,47 +5,84 @@
   </ion-navbar>
 
 </ion-header>
-
-
-<ion-content *ngIf="more">
-  <ion-card>
-    <ion-thumbnail *ngIf="featured_media">
-      <img src="assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg" />
-    </ion-thumbnail>
-
-    <ion-card-content>
-      <ion-card-title>
-        <h2 [innerHTML]="view_obj.title.rendered"></h2>
-      </ion-card-title>
-      <p [innerHTML]="view_obj.content.rendered"></p>
-    </ion-card-content>
-
-    <ion-row no-padding>
-      <ion-col col-6>
-        <button ion-button clear small color="danger" icon-start>
-          <ion-icon name='star'></ion-icon>
-          Favorite
-        </button>
-      </ion-col>
-      <ion-col col-6 text-center>
-        <button ion-button clear small color="danger" icon-start>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button>
-      </ion-col>
-    </ion-row>
-
-  </ion-card>
-</ion-content>
-
-<ion-content *ngIf="news">
+<ion-content>
+  <!--Messages-->
+  <div *ngIf="msge">
+    <ion-list>
+      <button *ngFor="let msg of view_obj" ion-item (click)="open_message(msg)">
+        <ion-note item-end>{{ msg.post_modified | date: 'shortDate' }}</ion-note>
+        <h2>{{msg.post_title}} <ion-badge color="secondary">new</ion-badge></h2> 
+        <ion-note>{{msg.post_content| trimHTML | truncate: 40 }}</ion-note>
+      </button>
+    </ion-list>
+  </div>
+  <!--Read Messages-->
+  <div *ngIf="read">
+    <ion-card>    
+      <ion-card-content>
+        <ion-card-title>
+          <h2 [innerHTML]="view_obj.post_title"></h2>
+        </ion-card-title>
+        <p [innerHTML]="view_obj.post_content"></p>
+        <ion-note>Posted on {{ view_obj.post_modified | date: 'longDate' }}</ion-note>
+      </ion-card-content>
+      <ion-row no-padding>
+        <ion-col col-6>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='star'></ion-icon>
+            Favorite
+          </button>
+        </ion-col>
+        <ion-col col-6 text-center>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='share-alt'></ion-icon>
+            Share
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+  <!--View more posts-->
+  <div *ngIf="more">
+    <ion-card>
+      <ion-thumbnail *ngIf="featured_media">
+        <img src="assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg" />
+      </ion-thumbnail>
+    
+      <ion-card-content>
+        <ion-card-title>
+          <h2 [innerHTML]="view_obj.title.rendered"></h2>
+        </ion-card-title>
+        <p [innerHTML]="view_obj.content.rendered"></p>
+        <ion-note>Posted on {{ view_obj.date | date: 'longDate' }}</ion-note>
+      </ion-card-content>
+    
+      <ion-row no-padding>
+        <ion-col col-6>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='star'></ion-icon>
+            Favorite
+          </button>
+        </ion-col>
+        <ion-col col-6 text-center>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='share-alt'></ion-icon>
+            Share
+          </button>
+        </ion-col>
+      </ion-row>
+    
+    </ion-card>
+  </div>
+  <!--View News-->
+  <div *ngIf="news">
     <ion-item *ngFor="let item of view_obj">
       <ion-thumbnail item-start>
         <img src="assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg">
       </ion-thumbnail>
       <h2 [innerHTML]="item.title.rendered"></h2>
       <p [innerHTML]="item.excerpt.rendered"></p>
-      <ion-note>{{item.date}}</ion-note>
+      <ion-note>Posted on {{ item.date | date: 'longDate' }}</ion-note>
       <ion-row>
         <ion-col col-6>
           <button ion-button color="primary" clear small icon-start (click)="view_more(item)">
@@ -55,19 +92,21 @@
         </ion-col>
       </ion-row>
     </ion-item>
-</ion-content>
-<ion-content *ngIf="events">
-  <ion-item *ngFor="let event of view_obj">
-    <h2 [innerHTML]="event.title.rendered"></h2>
-    <p [innerHTML]="event.excerpt.rendered"></p>
-    <ion-note>{{event.date}}</ion-note>
-    <ion-row>
-      <ion-col col-6>
-        <button ion-button color="primary" clear small icon-start (click)="view_more(event)">
-          <ion-icon name='logo-buffer'></ion-icon>
-          More
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-item>
+  </div>
+  <!--View Events-->
+  <div *ngIf="events">
+    <ion-item *ngFor="let event of view_obj">
+      <h2 [innerHTML]="event.title.rendered"></h2>
+      <p [innerHTML]="event.excerpt.rendered"></p>
+      <ion-note>Posted on {{ event.date | date: 'longDate' }}</ion-note>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button color="primary" clear small icon-start (click)="view_more(event)">
+            <ion-icon name='logo-buffer'></ion-icon>
+            More
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </div>
 </ion-content>

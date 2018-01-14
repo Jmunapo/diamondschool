@@ -55,7 +55,6 @@ export class LoginPage {
   do_login() {
     let loader = this.loader.create({
       content: 'Wait',
-      duration: 9000,
       spinner: 'bubbles',
     });
     loader.present();

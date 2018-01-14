@@ -11,6 +11,7 @@ import { Events } from 'ionic-angular/util/events';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  ready: boolean = false;
   count: number = 0;
   show: string = 'news';
   items: any;
@@ -44,14 +45,16 @@ export class HomePage {
   }
 
   reload_posts(subdomain){
-    this.remote.get_posts(subdomain)
+    this.remote.get_data(subdomain, 'posts')
       .subscribe(data => {
         this.items = data;
-      })
-    this.remote.get_events(subdomain)
+        this.ready = true;
+      });
+    this.remote.get_data(subdomain, 'events')
       .subscribe(data => {
         this.events = data;
-      })
+        console.log(data);
+      });
   }
 
   
