@@ -48,7 +48,7 @@ export class ShopPage {
     }, (err) => {
       console.log(err)
       let toast = this.toaster.create({
-        message: 'Error loading' + category,
+        message: 'Error loading ' + category,
         position: 'middle',
         duration: 5000
       });

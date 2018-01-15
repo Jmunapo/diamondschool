@@ -71,6 +71,12 @@ export class ShopProductDetailPage {
   }
 
   view_cart(){
-    this.modal.create(ShopCartPage).present();
+    const subscribe = this.modal.create(ShopCartPage);
+    subscribe.present();
+    subscribe.onDidDismiss(data => {
+      if (data) {
+        console.log(data);
+      }
+    })
   }
 }

@@ -35,6 +35,7 @@ import { ShopCategoryPage } from '../pages/shop-category/shop-category';
 import { WoocommerceProvider } from '../providers/woocommerce/woocommerce';
 import { ShopProductDetailPage } from '../pages/shop-product-detail/shop-product-detail';
 import { ShopCartPage } from '../pages/shop-cart/shop-cart';
+import { ShopCheckoutPage } from '../pages/shop-checkout/shop-checkout';
 
 export function WpApiLoaderFactory(http: Http, info: Info) {
   return new WpApiStaticLoader(http, 'http://info.diamond.school/wp-json/');
@@ -51,6 +52,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     ShopCategoryPage,
     ShopProductDetailPage,
     ShopCartPage,
+    ShopCheckoutPage,
     RegisterPage,
     AccountPage,
     SwitchSchoolPage,
@@ -79,7 +81,8 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     LoginPage,
     ShopCategoryPage, 
     ShopProductDetailPage, 
-    ShopCartPage, 
+    ShopCartPage,
+    ShopCheckoutPage, 
     RegisterPage,
     ModalPage,
     TabsPage,
