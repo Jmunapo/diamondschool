@@ -31,6 +31,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SwitchSchoolPage } from '../pages/switch-school/switch-school';
 import { OneSignal } from '@ionic-native/onesignal';
 import { ViewPage } from '../pages/view/view';
+import { ShopCategoryPage } from '../pages/shop-category/shop-category';
+import { WoocommerceProvider } from '../providers/woocommerce/woocommerce';
+import { ShopProductDetailPage } from '../pages/shop-product-detail/shop-product-detail';
+import { ShopCartPage } from '../pages/shop-cart/shop-cart';
 
 export function WpApiLoaderFactory(http: Http, info: Info) {
   return new WpApiStaticLoader(http, 'http://info.diamond.school/wp-json/');
@@ -44,6 +48,9 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     ShopPage,
     TabsPage,
     LoginPage,
+    ShopCategoryPage,
+    ShopProductDetailPage,
+    ShopCartPage,
     RegisterPage,
     AccountPage,
     SwitchSchoolPage,
@@ -70,6 +77,9 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     HomePage,
     ShopPage,
     LoginPage,
+    ShopCategoryPage, 
+    ShopProductDetailPage, 
+    ShopCartPage, 
     RegisterPage,
     ModalPage,
     TabsPage,
@@ -84,7 +94,8 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
     RemoteProvider,
     DatabaseProvider,
     Info,
-    OneSignal
+    OneSignal,
+    WoocommerceProvider
   ]
 })
 export class AppModule {}

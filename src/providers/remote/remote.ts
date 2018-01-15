@@ -80,7 +80,16 @@ export class RemoteProvider {
   get_meta(id) {
     return this.http.get(this.info.get_school_meta + id)
       .map(v => {
-        let info = { city: get_data(v['school-city']), subdomain: get_data(v['school-domain']), thumbnail: get_data(v['_thumbnail_id']), level: get_data(v['school-level']), location: get_data(v['school-location']) };
+        console.log('Get meta')
+        console.log(v);
+
+        let info = { city: get_data(v['school-city']), 
+                     subdomain: get_data(v['school-domain']), 
+                     thumbnail: get_data(v['_thumbnail_id']), 
+                     motto: get_data(v['school-motto']), 
+                     address: get_data(v['school-address']), 
+                     level: get_data(v['school-level']), 
+                     location: get_data(v['school-location']) };
         return info;
       });
     function get_data(arr) {
@@ -103,28 +112,14 @@ export class RemoteProvider {
     }
   }
 
-
-  get_thumb_image() {
-    this.http.get(this.info.get_media)
-      .subscribe(v => {
-        let image_data = [];
-        let data = JSON.parse(JSON.stringify(v));
-        for (let p of data) {
-          let thumbnail = { id: p.id, url: p.source_url }
-          image_data.push(thumbnail);
-        }
-        this.database.setData('thumbnails', image_data).then(val => {
-          if (v) {
-            console.log('Media available')
-          }
-        })
-
-      })
+  get_thumbnail(id){
+    let url = `http://info.diamond.school/wp-json/wp/v2/media/${id}`;
+    return this.http.get(url);
   }
 
   do_login(data) {
     let serialized = this.serialize_get(data);
-    let url = 'http://info.diamond.school/info/auth/generate_auth_cookie/?' + `${serialized}`;
+    let url = `http://info.diamond.school/info/auth/generate_auth_cookie/?${serialized}`;
     return this.http.get(url)
       .map(result => {
         return JSON.stringify(result);

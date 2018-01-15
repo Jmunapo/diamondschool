@@ -14,6 +14,16 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <div *ngIf="not_found">
+    <ion-card>
+      <ion-card-header>
+        <h1 style="text-align: center">
+          <ion-icon name="sad"></ion-icon>
+        </h1>
+        <p style="text-align: center">Nothing Received Yet!</p>
+      </ion-card-header>
+    </ion-card>
+  </div>
   <div class="messages" padding>
     <ion-list>
       <button *ngFor="let msg of my_messages" ion-item (click)="open_inbox(msg, msg.name)">

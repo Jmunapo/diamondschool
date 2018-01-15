@@ -21,10 +21,10 @@ export class MyApp {
   rootPage: any = LoginPage;
   moto:string = '';
   selected_school: any = {
-    city: '',
+    city: 'Mutare',
     level: '',
-    name: 'Select School',
-    location: '',
+    name: 'Diamond School App',
+    location: '22 Dawson st Mutare',
     thumbnail: 'assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg'
   }
   user_info: any = { user: { username: 'User'}};
@@ -44,7 +44,7 @@ export class MyApp {
       this.reload_posts(data.subdomain);
     });
     event.subscribe('message_changed', () => {
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(MyApp);
     });
     
     database.getData('account_info').then(val=>{
@@ -58,7 +58,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-       window["plugins"].OneSignal
+       /*window["plugins"].OneSignal
           .startInit("619eeaa7-630e-4c12-a650-5aa7421ebf22", "197583177674")
           //called when a notification is tapped on from the notification shade
           .handleNotificationOpened(function (jsonData) {
@@ -70,7 +70,7 @@ export class MyApp {
             alert("Notification received:\n" + JSON.stringify(jsonData));
           })
           //.setSubscription(true)
-          .endInit();
+          .endInit();*/
       });
   }
 

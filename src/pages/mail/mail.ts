@@ -12,6 +12,7 @@ import { Events } from 'ionic-angular/util/events';
   templateUrl: 'mail.html'
 })
 export class MailPage {
+  not_found: boolean;
   subdomain: string = "";
   subscribed_list: Array<any> = []; 
   selected: string = ''; //school name
@@ -39,10 +40,15 @@ export class MailPage {
   }
 
   load_messages(){
+    this.not_found = true;
     this.database.getData(this.subdomain + '_messages').then(msg=>{
       if(msg){
         this.my_messages = msg.reverse();
+        this.not_found = false;
         console.log(this.my_messages)
+        if(msg.length === 0){
+          this.not_found = true;
+        }
       }
     })
   }

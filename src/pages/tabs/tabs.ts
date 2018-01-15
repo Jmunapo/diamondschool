@@ -32,7 +32,6 @@ export class TabsPage {
     public remote: RemoteProvider, 
     public navCtrl: NavController) {
 
-    this.get_media();
     let data = navParams.get('user')
     let sw_user = navParams.get('sw_user')
     if (data || sw_user){
@@ -133,9 +132,6 @@ export class TabsPage {
         confirm.present();
       }
     });
-  }
-  get_media() {
-    this.remote.get_thumb_image();
   }
   
 }

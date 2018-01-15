@@ -40,7 +40,6 @@ export class SwitchSchoolPage {
   ionViewWillLoad() {
     this.load_all_schools();
     this.load_saved_schools();
-    this.get_media();
   }
 
   toggleSearchbar() {
@@ -61,13 +60,28 @@ export class SwitchSchoolPage {
             let name = xul.name;
             this.remote.get_meta(id)
               .subscribe(v => {
-                let b = this.media_url.findIndex(f => f.id === Number(v.thumbnail));
-                let thumbnail = "assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg";
-                if(b > -1){ thumbnail = this.media_url[b].url;  }
-                v['id'] = id;
-                v['name'] = name;
-                v['thumbnail'] = thumbnail;
-                this.all_schools.push(v);
+                console.log(v)
+                this.remote.get_thumbnail(Number(v.thumbnail))
+                  .subscribe(thumb=>{
+                    if(thumb){
+                      let thumbnail_url = JSON.parse(JSON.stringify(thumb)).source_url;
+                      this.all_schools.push(save_data(thumbnail_url))
+
+                    }else{
+                      let thumbnail_url = "assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg";
+                      this.all_schools.push(save_data(thumbnail_url))
+                    }
+                  },err=>{
+                    let thumbnail_url = "assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg";
+                    this.all_schools.push(save_data(thumbnail_url))
+                  })
+                function save_data(thumbnail_url){
+                  v['id'] = id;
+                  v['name'] = name;
+                  v['thumbnail'] = thumbnail_url;
+                  console.log(v);
+                  return v;
+                }
               },
               err => {
                 alert(JSON.stringify(err));
@@ -155,14 +169,6 @@ export class SwitchSchoolPage {
     return document.getElementById(id).innerHTML;
   }
 
-  get_media(){
-    this.database.getData('thumbnails').then(v=>{
-      if(v){
-        this.media_url = v;
-      }
-    })
-  }
-
   select_school(arr){
     this.database.getData('selected_school').then(val => {
       if (val) {
@@ -237,17 +243,6 @@ export class SwitchSchoolPage {
         loader.dismiss();
         this.show_toaster(msg);
       })
-  }
-
-  notifications(subdomain){
-    console.log(subdomain);
-    this.database.getData('selected_school').then(val=>{
-      console.log(val);
-      if(val){
-        //this.onesiginal.deleteTag(val.subdomain);
-      }
-      //this.onesiginal.sendTag(subdomain, '1')
-    });
   }
 
 

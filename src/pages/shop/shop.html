@@ -13,15 +13,17 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page4">
-  <ion-card>
-  
-    <ion-card-header>
-      
-   <h1 style="text-align: center"><ion-icon name="sad"></ion-icon></h1>
-      <p>Sorry your school doesn't have a shop yet</p> 
-      <p>Please come back Later</p>
-    </ion-card-header>
-  
+<ion-content class="card-background-page">
+  <ion-card (tap)="open('Uniforms')">
+    <img src="assets/img/school_uniforms.png" />
+  </ion-card>
+  <ion-card (tap)="open('Bags')">
+    <img src="assets/img/school_bags.png" />
+  </ion-card>
+  <ion-card (tap)="open('Stationary')">
+    <img src="assets/img/stationary.png" />
+  </ion-card>
+  <ion-card (tap)="open('Accessories')">
+    <img src="assets/img/accessories.png" />
   </ion-card>
 </ion-content>
