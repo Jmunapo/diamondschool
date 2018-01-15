@@ -81,8 +81,10 @@ export class ShopCartPage {
   checkout(){
     this.database.getData('account_info').then(acc=>{
       if(acc){
-        console.log(JSON.parse(acc));
-        this.navCtrl.push(ShopCheckoutPage);
+        let account = JSON.parse(acc);
+        this.navCtrl.push(ShopCheckoutPage, {
+          account: account.user
+        });
       }else{
         this.navCtrl.setRoot(LoginPage)
       }
