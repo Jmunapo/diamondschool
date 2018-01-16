@@ -58,23 +58,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Postal Code</ion-label>
-      <ion-input type="number" clearInput [(ngModel)]="order.postcode"></ion-input>
-    </ion-item>
-
-    <ion-item>
       <ion-label>Phone</ion-label>
       <ion-input type="tel" clearInput [(ngModel)]="account.description"></ion-input>
     </ion-item>
 
     <ion-item-divider color="primary_b">Payment Details</ion-item-divider>
 
-    <ion-item>
-      <ion-label>Payment Method</ion-label>
-      <ion-select [(ngModel)]="payment_method">
-        <ion-option *ngFor="let p of payment_methods" value="{{p.method_id}}">{{ p.method_title }}</ion-option>
-      </ion-select>
-    </ion-item>
 
   </ion-list>
 

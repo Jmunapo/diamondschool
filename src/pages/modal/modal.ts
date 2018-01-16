@@ -107,6 +107,7 @@ export class ModalPage {
     this.database.setData(this.subdomain + '_groups', this.subscribed_groups).then(v => {
       if (v) {
         console.log('Saved');
+        this.load_messages(grp);
       } else {
         console.log('Not Saved');
       }
@@ -119,7 +120,18 @@ export class ModalPage {
     this.subscribed_groups.splice(a, 1);
     this.database.setData(this.subdomain + '_groups', this.subscribed_groups).then(v=>{
       if (v) {
-        console.log('Saved');
+        this.database.getData(this.subdomain + '_messages').then(msg=>{
+          if(msg){
+            let c = msg.findIndex(f => f.group === grp.posttype);
+            msg.splice(c,1);
+            console.log(msg);
+            this.database.setData(this.subdomain + '_messages', msg).then(sav => {
+              if (sav) {
+                console.log('Massege Saved')
+              }
+            })
+          }
+        })
       } else {
         console.log('Not Saved');
       }
@@ -137,6 +149,28 @@ export class ModalPage {
       }
     }
     this.ready = true;
+  }
+
+  load_messages(group){
+    this.database.getData(this.subdomain + '_messages').then(data=>{
+      let messages = [];
+      console.log(data);
+      if(data){messages = data};
+      this.remote.get_custom_post(this.subdomain, group.posttype).subscribe(msg => {
+        if (msg) {
+          let res = JSON.parse(JSON.stringify(msg))
+          if (res.length !== 0) {
+            let to_save = { name: group.label + ' Inbox', group: group.posttype, messages: res }
+            messages.push(to_save);
+          }
+        }
+          this.database.setData(this.subdomain + '_messages', messages).then(sav => {
+            if (sav) {
+              console.log('Massege Saved')
+            }
+          })
+      });
+    })
   }
 
 

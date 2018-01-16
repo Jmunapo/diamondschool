@@ -28,23 +28,34 @@ export class ShopPage {
     });
     loader.present();
     this.WooCommerce.getAsync("products?filter[category]=" + category).then((data) => {
-      console.log(JSON.parse(data.body));
-      let products = JSON.parse(data.body).products;
-      if(products.length > 0){
-        loader.dismiss();
-        this.navCtrl.push(ShopCategoryPage, {
-          item: item,
-          products: products
-        })
-      }else{
+      try {
+        let products = JSON.parse(data.body).products;
+        if (products.length > 0) {
+          loader.dismiss();
+          this.navCtrl.push(ShopCategoryPage, {
+            item: item,
+            products: products
+          })
+        } else {
+          let toast = this.toaster.create({
+            message: 'Sorry! No ' + category + ' found',
+            position: 'middle',
+            duration: 5000
+          });
+          loader.dismiss();
+          toast.present();
+        }
+      } catch (error) {
         let toast = this.toaster.create({
-          message: 'Sorry! No ' + category + ' found',
+          message: 'Error! Check your internet',
           position: 'middle',
           duration: 5000
         });
         loader.dismiss();
         toast.present();
+        console.log(error);
       }
+      
     }, (err) => {
       console.log(err)
       let toast = this.toaster.create({

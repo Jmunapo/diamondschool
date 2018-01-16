@@ -2,8 +2,13 @@
   <ion-header>
     <ion-toolbar color="primary_b">
         <ion-title style="text-align:center">
-          Hi, {{user_info.user.username}}
+          Hi, {{user_info.user.username.toUpperCase()}}
         </ion-title>
+        <ion-buttons end>
+          <button menuToggle ion-button icon-only (click)="about('me')">
+          <ion-icon name="contact"></ion-icon>Me
+          </button>
+        </ion-buttons>
       </ion-toolbar>
   </ion-header>
   <ion-content >
@@ -21,9 +26,9 @@
 
       <ion-row>
         <ion-col col-4>
-          <button ion-button color="primary" outline full icon-start>
-            <ion-icon name='chatbubbles'></ion-icon>
-            Chat
+          <button ion-button color="primary" menuToggle outline full icon-start (click)="about('school')">
+            <ion-icon name='information-circle'></ion-icon>
+            About
           </button>
         </ion-col>
         <ion-col col-8>

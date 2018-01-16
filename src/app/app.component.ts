@@ -129,5 +129,14 @@ export class MyApp {
     });
     confirm.present();
   }
+
+  about(who){
+    console.log(who);
+    let obj;
+    if (who === 'me') { obj = this.user_info.user; }
+    if (who === 'school') { obj = this.selected_school; }
+
+    console.log(obj);
+  }
   
 }

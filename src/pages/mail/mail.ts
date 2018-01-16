@@ -40,6 +40,16 @@ export class MailPage {
   }
 
   load_messages(){
+    this.database.getData(this.subdomain + '_groups').then(val => {
+      console.log(val);
+      if (!val) {
+        this.add_messages();
+      }else{
+        if(val.length === 0){
+          this.add_messages();
+        }
+      }
+    });
     this.not_found = true;
     this.database.getData(this.subdomain + '_messages').then(msg=>{
       if(msg){
@@ -58,7 +68,8 @@ export class MailPage {
     subscribe.present();
     subscribe.onDidDismiss(data => {
       if (data) {
-        this.event.publish('message_changed');
+        this.load_messages();
+        //this.event.publish('message_changed');
         console.log(data);
       }
     })
