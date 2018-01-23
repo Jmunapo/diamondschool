@@ -36,6 +36,7 @@ import { WoocommerceProvider } from '../providers/woocommerce/woocommerce';
 import { ShopProductDetailPage } from '../pages/shop-product-detail/shop-product-detail';
 import { ShopCartPage } from '../pages/shop-cart/shop-cart';
 import { ShopCheckoutPage } from '../pages/shop-checkout/shop-checkout';
+import { AboutPage } from '../pages/about/about';
 
 export function WpApiLoaderFactory(http: Http, info: Info) {
   return new WpApiStaticLoader(http, 'http://info.diamond.school/wp-json/');
@@ -44,6 +45,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
 @NgModule({
   declarations: [
     MyApp,
+    AboutPage,
     MailPage,
     HomePage,
     ShopPage,
@@ -75,6 +77,7 @@ export function WpApiLoaderFactory(http: Http, info: Info) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    AboutPage,
     MailPage,
     HomePage,
     ShopPage,

@@ -168,4 +168,7 @@ export class RemoteProvider {
     }
     return str.join("&");
   }
+  get_app_Detail(){
+    return this.http.get('http://info.diamond.school/api/api.json');
+  }
 }

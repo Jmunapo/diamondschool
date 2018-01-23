@@ -10,6 +10,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { Events } from 'ionic-angular/util/events';
 import { TabsPage } from '../pages/tabs/tabs';
+import { AboutPage } from '../pages/about/about';
 
 
 
@@ -58,7 +59,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-       /*window["plugins"].OneSignal
+       window["plugins"].OneSignal
           .startInit("619eeaa7-630e-4c12-a650-5aa7421ebf22", "197583177674")
           //called when a notification is tapped on from the notification shade
           .handleNotificationOpened(function (jsonData) {
@@ -70,7 +71,7 @@ export class MyApp {
             alert("Notification received:\n" + JSON.stringify(jsonData));
           })
           //.setSubscription(true)
-          .endInit();*/
+          .endInit();
       });
   }
 
@@ -133,10 +134,19 @@ export class MyApp {
   about(who){
     console.log(who);
     let obj;
-    if (who === 'me') { obj = this.user_info.user; }
-    if (who === 'school') { obj = this.selected_school; }
-
-    console.log(obj);
+    let title;
+    if (who === 'me') {
+       obj = this.user_info.user; 
+       title = 'Profile';
+      }
+    if (who === 'school') { 
+      obj = this.selected_school; 
+      title = 'About';
+    }
+    this.navCtrl.push(AboutPage,{
+      obj: obj,
+      title: title
+    })
   }
   
 }
