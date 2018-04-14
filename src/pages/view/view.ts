@@ -13,6 +13,7 @@ export class ViewPage {
   more: boolean = false;
   msge: boolean = false;
   read: boolean = false;
+  image: boolean = false;
   title: string = '';
   subdomain: string = '';
 
@@ -57,6 +58,11 @@ export class ViewPage {
       this.read = true;
       this.title = '';
       this.view_obj = this.navParams.get('massage');
+    }
+    if (type === 'image') {
+      this.image = true;
+      this.title = '';
+      this.view_obj = this.navParams.get('image');
     }
 
     console.log(this.view_obj);

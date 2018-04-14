@@ -109,4 +109,34 @@
       </ion-row>
     </ion-item>
   </div>
+
+  <!--View more posts-->
+  <div *ngIf="image">
+    <ion-card>
+      <ion-thumbnail >
+        <img [src]="view_obj.source_url" />
+      </ion-thumbnail>
+  
+      <ion-card-content>
+        <p [innerHTML]="view_obj.caption.rendered"></p>
+        <ion-note>Posted on {{ view_obj.date | date: 'longDate' }}</ion-note>
+      </ion-card-content>
+  
+      <ion-row no-padding>
+        <ion-col col-6>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='star'></ion-icon>
+            Favorite
+          </button>
+        </ion-col>
+        <ion-col col-6 text-center>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='share-alt'></ion-icon>
+            Share
+          </button>
+        </ion-col>
+      </ion-row>
+  
+    </ion-card>
+  </div>
 </ion-content>

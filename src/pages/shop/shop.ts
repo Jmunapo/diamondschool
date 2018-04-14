@@ -4,6 +4,8 @@ import { ShopCategoryPage } from '../shop-category/shop-category';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { ShopCartPage } from '../shop-cart/shop-cart';
 
 @Component({
   selector: 'page-shop',
@@ -12,6 +14,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 export class ShopPage {
   WooCommerce: any;
   constructor(
+    public modal: ModalController,
     public navCtrl: NavController, 
     private wp: WoocommerceProvider,
     public loader: LoadingController,
@@ -66,9 +69,18 @@ export class ShopPage {
       loader.dismiss();
       toast.present();
     })
-
+    
 
     
+  }
+  view_cart() {
+    const subscribe = this.modal.create(ShopCartPage);
+    subscribe.present();
+    subscribe.onDidDismiss(data => {
+      if (data) {
+        console.log(data);
+      }
+    })
   }
   
 }

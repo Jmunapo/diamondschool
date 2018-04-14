@@ -12,22 +12,26 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+    <div *ngIf="ready">
+      <ion-segment [(ngModel)]="show">
+        <ion-segment-button value="news">
+          News
+        </ion-segment-button>
+        <ion-segment-button value="events">
+          Events
+        </ion-segment-button>
+        <ion-segment-button value="gallery">
+          Gallery
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
   <div style="text-align:center" *ngIf="!ready">
     <ion-spinner name="bubbles"></ion-spinner>
     <p>Loading News...</p>
-  </div>
-  
-  <div *ngIf="ready">
-    <ion-segment [(ngModel)]="show">
-      <ion-segment-button value="news">
-        News
-      </ion-segment-button>
-      <ion-segment-button value="events">
-        Events
-      </ion-segment-button>
-    </ion-segment>
   </div>
   <!--Loader...-->
   
@@ -87,5 +91,14 @@
         </button>
       </ion-fab>
     </ion-list>
+
+    <ion-grid *ngSwitchCase="'gallery'">
+      <ion-row>
+        <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of gallery" (tap)="view_image(image)">
+          <div class="image-container" [style.background-image]="'url('+image.media_details.sizes.thumbnail.source_url+')'"></div>
+          <p [innerHTML]="image.caption.rendered"></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

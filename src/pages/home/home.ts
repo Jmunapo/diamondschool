@@ -16,6 +16,7 @@ export class HomePage {
   show: string = 'news';
   items: any;
   events: any;
+  gallery: any;
   news_read_later: Array<any> = [];
   events_read_later: Array<any> = [];
 
@@ -55,6 +56,12 @@ export class HomePage {
         this.events = data;
         console.log(data);
       });
+    this.remote.get_data(subdomain, 'gallery')
+      .subscribe(data => {
+        this.gallery = data;
+        console.log(data);
+      });
+    
   }
 
   
@@ -115,5 +122,13 @@ export class HomePage {
       duration: 4000
     });
     toast.present();
+  }
+
+  view_image(image){
+    console.log(image);
+    this.navCtrl.push(ViewPage, {
+      image: image,
+      type: 'image'
+    });
   }
 }
